@@ -1,0 +1,93 @@
+
+# Dung de quan ly container tap trung
+
+services:
+
+  # docker run --name database -d -v ./postgres_data:/var/lib/postgresql -e POSTGRES_PASSWORD=12345 -p 5432:5432 postgres:18
+  database: 
+    image: postgres:18
+    container_name: database
+    ports: 
+      - 5432:5432 
+    volumes:
+      - /home/huythichloli/Projects/postgres_data:/var/lib/postgresql
+    environment: 
+      - POSTGRES_PASSWORD=12345
+
+  # docker run --name go_gin_be_container -d -p 8002:8080 --env-file=.env go_gin_be_image
+  go_gin_be:
+    image: go_gin_be_image
+    container_name: go_gin_be
+    ports:
+      - 8002:8080  
+    env_file:
+      - ../go_gin_be/.env
+    depends_on:
+      - database
+
+  # docker run --name java_be_container -d -p 8003:8080 --env-file=.env java_be_image
+  java_be:
+    image: java_be_image
+    container_name: java_be
+    ports:
+      - 8003:8080
+    env_file:
+      - ../java_be/.env
+    depends_on:
+      - database 
+  
+  # docker run --name js_nestjs_container -d -p 8004:3000 --env-file=.env js_nestjs_image
+  js_nestjs:
+    image: js_nestjs_image
+    container_name: js_nestjs
+    ports: 
+      - 8004:3000
+    env_file:
+      - ../js_nestjs/.env
+    depends_on:
+      - database 
+
+  # docker run --name csharp_be_container -d -p 8005:8080 --env-file=.env csharp_be_image
+  csharp_be:
+    image: csharp_be_image
+    container_name: csharp_be
+    ports:
+      - 8005:8080
+    env_file:
+      - ../csharp_be/.env
+    depends_on:
+      - database
+
+  # docker run --name my-app-container -d -p 12345:3000 --network demo_network vulebaolong/my-app-image
+  js_nextjs:
+    # build:
+    image: ikenuyh/my-app-image 
+    container_name: js_nextjs
+    ports:
+      - 3001:3000
+
+  # docker run --name html_container -d -p 3000:80 html_image
+  html:
+    image: html_image
+    container_name: html
+    ports:
+      - 3002:80
+
+  # docker run --name js_react_vite_container -d -p 3001:80 js_react_vite_image
+  js_react_vite:  
+    image: js_react_vite_image
+    container_name: js_react_vite
+    ports:
+      - 3003:80
+
+volumes: 
+  postgres-data:
+
+# Dung de giao tiep voi docker-compose khac
+networks:
+  demo_network: 
+    external: true 
+
+# docker compose up -d
+# docker compose down  
+#  docker compose -p docker-compose ps 

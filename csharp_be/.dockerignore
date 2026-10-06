@@ -1,0 +1,9 @@
+# File này quan trọng chứa cái key không được đưa lên
+.env 
+
+obj
+*.http
+appsettings.Development.json
+
+Dockerfile
+.dockerignore
