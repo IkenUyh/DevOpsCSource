@@ -16,6 +16,9 @@ services:
 
   # docker run --name go_gin_be_container -d -p 8002:8080 --env-file=.env go_gin_be_image
   go_gin_be:
+    build:
+      context: ../go_gin_be
+      dockerfile: Dockerfile
     image: go_gin_be_image
     container_name: go_gin_be
     ports:
@@ -27,6 +30,9 @@ services:
 
   # docker run --name java_be_container -d -p 8003:8080 --env-file=.env java_be_image
   java_be:
+    build:
+      context: ../java_be
+      dockerfile: Dockerfile
     image: java_be_image
     container_name: java_be
     ports:
@@ -38,6 +44,9 @@ services:
   
   # docker run --name js_nestjs_container -d -p 8004:3000 --env-file=.env js_nestjs_image
   js_nestjs:
+    build:
+      context: ../js_nestjs
+      dockerfile: Dockerfile
     image: js_nestjs_image
     container_name: js_nestjs
     ports: 
@@ -49,6 +58,9 @@ services:
 
   # docker run --name csharp_be_container -d -p 8005:8080 --env-file=.env csharp_be_image
   csharp_be:
+    build:
+      context: ../csharp_be
+      dockerfile: Dockerfile
     image: csharp_be_image
     container_name: csharp_be
     ports:
@@ -68,6 +80,9 @@ services:
 
   # docker run --name html_container -d -p 3000:80 html_image
   html:
+    build:
+      context: ../html
+      dockerfile: Dockerfile
     image: html_image
     container_name: html
     ports:
@@ -75,18 +90,21 @@ services:
 
   # docker run --name js_react_vite_container -d -p 3001:80 js_react_vite_image
   js_react_vite:  
+    build:
+      context: ../js_react_vite
+      dockerfile: Dockerfile
     image: js_react_vite_image
     container_name: js_react_vite
     ports:
       - 3003:80
 
-volumes: 
-  postgres-data:
+# volumes: 
+#   postgres-data:
 
 # Dung de giao tiep voi docker-compose khac
-networks:
-  demo_network: 
-    external: true 
+# networks:
+#   demo_network: 
+#     external: true 
 
 # docker compose up -d
 # docker compose down  
